@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head lang="en">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-animate.js"></script>
+    <script src="myApp.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Instagram Searcher</title>
+</head>
+<body ng-controller="MyCtrl">
+    <form name="instagramSearcherForm" novalidate ng-submit="submit()">
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-xs-4">
+                    <img src="ng-instagram.png" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-4">
+                    <input type="text" name="searchTerm" class="form-control" ng-model="searchTerm" placeholder="Enter a tag to search" required />
+                    <span class="has-error" ng-if="instagramSearcherForm.$submitted && instagramSearcherForm.searchTerm.$error.required">
+                        Search term is required!
+                    </span>
+                </div>
+                <div class="form-group col-xs-4">
+                    <input type="submit" value="Search" class="btn"/>
+                </div>
+            </div>
+            <div class="row" ng-show="showSearchTerm">
+                <p class="col-xs-4">Searching Instagram for photos with <strong>"{{searchTermText}}"</strong></p>
+            </div>
+            <div class="row" ng-show="showResultCount">
+                <p class="col-xs-4">We found <strong>"{{instagrams.data.length}}"</strong> results for <strong>"{{searchTermText}}"</strong></p>
+            </div>
+            <div class="row" ng-show="showError">
+                <p class="col-xs-4">An error was found.</p>
+            </div>
+            <ul class="list-inline">
+                <li ng-repeat="instagram in instagrams.data" class="view-slide-in">
+                    <a href="{{instagram.link}}"><img ng-src="{{instagram.images.thumbnail.url}}" width="{{instagram.images.thumbnail.width}}" height="{{instagram.images.thumbnail.height}}" /></a>
+                </li>
+            </ul>
+        </div>
+    </form>
+</body>
+</html>
